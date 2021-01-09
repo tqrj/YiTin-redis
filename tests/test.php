@@ -12,7 +12,6 @@ use Swoole\Database\RedisConfig;
     64
 );
 \Co\run(function (){
-
     go(function (){
         $ArtLock = new \yiTin\TinLock('goods_100',5000);
         $status = $ArtLock->lock();

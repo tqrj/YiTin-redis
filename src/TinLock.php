@@ -13,7 +13,7 @@ class TinLock
 
     private bool $lockStatus = false;
 
-    private int $lockFlag;
+    private string $lockFlag;
 
     private int $outTimeMs;
 
@@ -22,7 +22,7 @@ class TinLock
         local val = ARGV[1] 
         local px = ARGV[2]
         local temp = nil
-        res = redis.call('set',key,val,'nx','px',px)
+        local res = redis.call('set',key,val,'nx','px',px)
         if(res == true)
         then
             return 1
@@ -56,7 +56,7 @@ class TinLock
     {
         $this->lockKey = $lockKey;
         $this->outTimeMs = $outTimeMs;
-        $this->lockFlag = TinRedis::incr('TinLockCount');
+        $this->lockFlag = TinRedis::incr('TinLockFlag');
         if (!$this->lockFlag) {
             return false;
         }
