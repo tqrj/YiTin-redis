@@ -1,7 +1,8 @@
 {
     "name": "yi-tin/redis",
-    "description": "swoole-redis-pool",
+    "type": "library",
     "license": "MulanPSL-1.0",
+    "description": "swoole-redis-pool",
     "authors": [
         {
             "name": "一听",

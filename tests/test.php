@@ -1,6 +1,8 @@
 <?php
 
+require '../vendor/autoload.php';
 use Swoole\Database\RedisConfig;
+
 ArtRedis::initialize((new RedisConfig())
     ->withHost('127.0.0.1')
     ->withPort(6379)
