@@ -1,5 +1,6 @@
 <?php
 
+namespace yiTin;
 
 /**
  * 封装 Redis类 方法

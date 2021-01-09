@@ -9,6 +9,11 @@
             "email": "10880665@qq.com"
         }
     ],
+    "autoload": {
+        "psr-4" : {
+            "yiTin\\" : "src/"
+        }
+    },
     "require": {
         "php": "^7.4 || ^8.0",
         "swoole/ide-helper": "@dev",

@@ -3,7 +3,7 @@
 require '../vendor/autoload.php';
 use Swoole\Database\RedisConfig;
 
-ArtRedis::initialize((new RedisConfig())
+\yiTin\ArtRedis::initialize((new RedisConfig())
     ->withHost('127.0.0.1')
     ->withPort(6379)
     ->withAuth(0)
@@ -14,7 +14,7 @@ ArtRedis::initialize((new RedisConfig())
 \Co\run(function (){
 
     go(function (){
-        $ArtLock = new ArtLock('goods_100',20000);
+        $ArtLock = new \yiTin\ArtLock('goods_100',20000);
         $ArtLock->lock();
         echo '我进来了';
         \Co\System::sleep(10);
@@ -23,7 +23,7 @@ ArtRedis::initialize((new RedisConfig())
     });
 
     go(function (){
-        $ArtLock = new ArtLock('goods_100',20000);
+        $ArtLock = new \yiTin\ArtLock('goods_100',20000);
         echo '我也进来了';
         $ArtLock->lock();
         echo '我也进来了';
