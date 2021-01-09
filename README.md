@@ -1,5 +1,5 @@
 # YiTin-redis
-Swoole Redis连接池 自动归还 基础的Redis分布式锁
+Swoole Redis连接池 自动归还 基础的Redis分布式 互斥锁
 
 ## 说明
     使用 TinLock（互斥锁） 之前需要先 初始化 TinRedis
