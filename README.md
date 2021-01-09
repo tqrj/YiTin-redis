@@ -4,7 +4,7 @@ Swoole redis连接池 自动归还 基础的redis分布式锁
 ## 安装
 `composer require yi-tin/redis`
 
-##使用
+## 使用
 
     ArtRedis::initialize((new RedisConfig())
     ->withHost('127.0.0.1')
