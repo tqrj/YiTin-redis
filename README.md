@@ -16,7 +16,7 @@ Swoole Redis连接池 自动归还 基础的Redis分布式 互斥锁
 
 
 
-    \yiTin\TinRedis::initialize((new RedisConfig())
+    \YiTin\TinRedis::initialize((new RedisConfig())
        ->withHost('127.0.0.1')
         ->withPort(6379)
         ->withAuth('')
@@ -26,7 +26,7 @@ Swoole Redis连接池 自动归还 基础的Redis分布式 互斥锁
     );
     
     go(function (){
-        $ArtLock = new \yiTin\TinLock('goods_100',5000);
+        $ArtLock = new \YiTin\TinLock('goods_100',5000);
         $status = $ArtLock->lock();
         if (!$status){
             echo '请求一:进入失败'.PHP_EOL;
@@ -42,7 +42,7 @@ Swoole Redis连接池 自动归还 基础的Redis分布式 互斥锁
         echo '请求一:退出成功'.PHP_EOL;
     });
     go(function (){
-        $ArtLock = new \yiTin\TinLock('goods_100',5000);
+        $ArtLock = new \YiTin\TinLock('goods_100',5000);
         $status = $ArtLock->lock();
         if (!$status){
             echo '请求二:进入失败'.PHP_EOL;
