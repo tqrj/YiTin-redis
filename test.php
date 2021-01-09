@@ -22,7 +22,7 @@ ArtRedis::initialize((new RedisConfig())
 
     go(function (){
         $ArtLock = new ArtLock('goods_100',20000);
-        echo '我开始进来了';
+        echo '我也进来了';
         $ArtLock->lock();
         echo '我也进来了';
         $ArtLock->unLock();
