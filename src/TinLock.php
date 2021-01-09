@@ -1,6 +1,6 @@
 <?php
 
-namespace yiTin;
+namespace YiTin;
 
 use Co\System;
 
