@@ -1,12 +1,12 @@
 <?php
 
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 use Swoole\Database\RedisConfig;
 
-\yiTin\ArtRedis::initialize((new RedisConfig())
+\yiTin\TinRedis::initialize((new RedisConfig())
     ->withHost('127.0.0.1')
     ->withPort(6379)
-    ->withAuth(0)
+    ->withAuth('')
     ->withDbIndex(1)
     ->withTimeout(1),
     64
@@ -14,21 +14,37 @@ use Swoole\Database\RedisConfig;
 \Co\run(function (){
 
     go(function (){
-        $ArtLock = new \yiTin\ArtLock('goods_100',20000);
-        $ArtLock->lock();
-        echo '我进来了';
-        \Co\System::sleep(10);
-        $ArtLock->unLock();
-        echo '我出来了';
+        $ArtLock = new \yiTin\TinLock('goods_100',5000);
+        $status = $ArtLock->lock();
+        if (!$status){
+            echo '请求一:进入失败'.PHP_EOL;
+            return;
+        }
+        echo '请求一:进入成功'.PHP_EOL;
+        \Co\System::sleep(7);
+        $status = $ArtLock->unLock();
+        if(!$status){
+            echo '请求一:退出失败'.PHP_EOL;
+            return;
+        }
+        echo '请求一:退出成功'.PHP_EOL;
     });
-
     go(function (){
-        $ArtLock = new \yiTin\ArtLock('goods_100',20000);
-        echo '我也进来了';
-        $ArtLock->lock();
-        echo '我也进来了';
-        $ArtLock->unLock();
-        echo '我也跟着出来了';
+        $ArtLock = new \yiTin\TinLock('goods_100',5000);
+        $status = $ArtLock->lock();
+        if (!$status){
+            echo '请求二:进入失败'.PHP_EOL;
+            return;
+        }
+        echo '请求二:进入成功'.PHP_EOL;
+        \Co\System::sleep(3);
+        $status = $ArtLock->unLock();
+        if(!$status){
+            echo '请求二:退出失败'.PHP_EOL;
+            return;
+        }
+        echo '请求二:退出成功'.PHP_EOL;
     });
 });
+
 

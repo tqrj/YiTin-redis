@@ -7,7 +7,7 @@ use Co\System;
 /**
  * Class ArtLock
  */
-class ArtLock
+class TinLock
 {
     private string $lockKey;
 
@@ -23,7 +23,7 @@ class ArtLock
         local px = ARGV[2]
         local temp = nil
         res = redis.call('set',key,val,'nx','px',px)
-        if(res == 'ok')
+        if(res == true)
         then
             return 1
         else
@@ -56,7 +56,7 @@ class ArtLock
     {
         $this->lockKey = $lockKey;
         $this->outTimeMs = $outTimeMs;
-        $this->lockFlag = ArtRedis::incr('artCount');
+        $this->lockFlag = TinRedis::incr('TinLockCount');
         if (!$this->lockFlag) {
             return false;
         }
@@ -73,8 +73,7 @@ class ArtLock
             return true;
         }
         do {
-            $this->lockStatus = (bool)ArtRedis::eval($this->lockLua, ['ArtLock' . $this->lockKey], [$this->lockFlag, $this->outTimeMs]
-            );
+            $this->lockStatus = (bool)TinRedis::eval($this->lockLua, ['TinLock' . $this->lockKey,$this->lockFlag, $this->outTimeMs],1);
             if (false == $this->lockStatus) {
                 System::sleep(0.01);
             }
@@ -88,7 +87,7 @@ class ArtLock
         if ($this->lockStatus) {
             return true;
         }
-        $this->lockStatus = (bool)ArtRedis::eval($this->lockLua, ['ArtLock' . $this->lockKey], [$this->lockFlag, $this->outTimeMs]);
+        $this->lockStatus = (bool)TinRedis::eval($this->lockLua, ['TinLock' . $this->lockKey,$this->lockFlag, $this->outTimeMs], 1);
         return $this->lockStatus;
     }
 
@@ -100,6 +99,6 @@ class ArtLock
         if (false == $this->lockStatus) {
             return false;
         }
-        return (bool)ArtRedis::eval($this->unLockLua,['ArtLock' . $this->lockKey],[$this->lockFlag]);
+        return (bool)TinRedis::eval($this->unLockLua,['TinLock' . $this->lockKey,$this->lockFlag],1);
     }
 }

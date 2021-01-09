@@ -215,7 +215,7 @@ namespace yiTin;
  * @method static int xTrim($stream, $maxLen, $isApproximate)
  * @method static int|bool sAddArray($key, array $values)
  */
-class ArtRedis
+class TinRedis
 {
 
     private static self $instance;
@@ -247,7 +247,7 @@ class ArtRedis
         return self::$instance;
     }
 
-    private static function put(Redis $redis)
+    private static function put(\Redis $redis)
     {
         self::$pool->put($redis);
     }
@@ -260,7 +260,7 @@ class ArtRedis
     public static function __callStatic ($name, $arguments)
     {
         $redis = self::pop();
-        if (!$redis instanceof Redis) {
+        if (!$redis instanceof \Redis) {
             return false;
         }
         //$result = call_user_func_array([$redis, $name], $arguments);
