@@ -1,14 +1,14 @@
 {
-    "name": "art/redis",
+    "name": "yiTin/redis",
     "description": "swoole-redis-pool",
     "authors": [
         {
-            "name": "tsli",
-            "email": "2816869721@qq.com"
+            "name": "一听",
+            "email": "10880665@qq.com"
         }
     ],
     "require": {
-        "php": "^7.1.8 || ^8.0",
+        "php": "^7.4 || ^8.0",
         "swoole/ide-helper": "@dev",
       "ext-redis": "*"
     }
