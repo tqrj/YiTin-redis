@@ -9,12 +9,24 @@ use Co\System;
  */
 class TinLock
 {
+    /**
+     * @var string
+     */
     private string $lockKey;
 
+    /**
+     * @var bool
+     */
     private bool $lockStatus = false;
 
+    /**
+     * @var int|string
+     */
     private string $lockFlag;
 
+    /**
+     * @var int
+     */
     private int $outTimeMs;
 
     private string $lockLua = "
@@ -35,6 +47,7 @@ class TinLock
                 return 0
             end
         end";
+
     private string $unLockLua = "
         local key = KEYS[1]
         local val = ARGV[1]
@@ -82,6 +95,9 @@ class TinLock
         return $this->lockStatus;
     }
 
+    /**
+     * @return bool
+     */
     public function tryLock()
     {
         if ($this->lockStatus) {
@@ -99,6 +115,32 @@ class TinLock
         if (false == $this->lockStatus) {
             return false;
         }
-        return (bool)TinRedis::eval($this->unLockLua,['TinLock' . $this->lockKey,$this->lockFlag],1);
+        $status = (bool)TinRedis::eval($this->unLockLua,['TinLock' . $this->lockKey,$this->lockFlag],1);
+        $this->lockStatus = !$status;
+        return $status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLockKey()
+    {
+        return $this->lockKey;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOutTimeMs()
+    {
+        return $this->outTimeMs;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getStatus()
+    {
+        return $this->lockStatus;
     }
 }
