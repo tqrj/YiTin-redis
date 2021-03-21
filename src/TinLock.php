@@ -69,7 +69,8 @@ class TinLock
     {
         $this->lockKey = $lockKey;
         $this->outTimeMs = $outTimeMs;
-        $this->lockFlag = TinRedis::incr('TinLockFlag');
+        $this->lockFlag = uniqid(mt_rand(1,9999999999),true);
+
         if (!$this->lockFlag) {
             return false;
         }
