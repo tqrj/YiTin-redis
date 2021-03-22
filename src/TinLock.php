@@ -81,7 +81,7 @@ class TinLock
     /**
      * @return bool
      */
-    public function lock()
+    public function lock(): bool
     {
         if ($this->lockStatus) {
             return true;
@@ -99,7 +99,7 @@ class TinLock
     /**
      * @return bool
      */
-    public function tryLock()
+    public function tryLock(): bool
     {
         if ($this->lockStatus) {
             return true;
@@ -111,7 +111,7 @@ class TinLock
     /**
      * @return bool
      */
-    public function unLock()
+    public function unLock(): bool
     {
         if (false == $this->lockStatus) {
             return false;
@@ -124,7 +124,7 @@ class TinLock
     /**
      * @return string
      */
-    public function getLockKey()
+    public function getLockKey(): string
     {
         return $this->lockKey;
     }
@@ -132,7 +132,7 @@ class TinLock
     /**
      * @return int
      */
-    public function getOutTimeMs()
+    public function getOutTimeMs(): int
     {
         return $this->outTimeMs;
     }
@@ -140,7 +140,7 @@ class TinLock
     /**
      * @return bool
      */
-    public function getStatus()
+    public function getStatus(): bool
     {
         return $this->lockStatus;
     }
